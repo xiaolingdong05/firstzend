@@ -1,0 +1,69 @@
+<!--<?php
+if (isset($this->previous))
+{
+	echo '<a href="'.$this->url(array('page'=>$this->first)).'">Beginning </a>';
+} 
+else
+{
+	echo "Beginning ";
+}
+
+if (isset($this->previous))
+{
+	echo '<a href="'.$this->url(array('page'=>$this->previous)).'">&lt Previous </a>';
+} 
+
+
+foreach($this->pagesInRange as $page)
+{
+	if ($this->current != $page)
+	{
+		echo '<a href="'.$this->url(array('page'=>$page)).'">'.$page.'</a> | ';
+	}
+	else
+	{
+		echo $page. ' | ';
+	}
+}
+
+if (isset($this->next))
+{
+	echo '<a href="'.$this->url(array('page'=>$this->next)).'">Next &gt </a>';
+} 
+
+if (isset($this->next))
+{
+	echo '<a href="'.$this->url(array('page'=>$this->last)).'">End</a>';
+} 
+else
+{
+	echo "End";
+}
+echo "</br>";
+?>
+Showing <?php echo $this->current; ?> out of <?php echo $this->pageCount;?>-->
+
+
+<?= $this->ajaxLink('Beginning',
+					$this->url(array('page'=>$this->first)),
+					array('id'=>'beginning',
+						  'complete'=>'displayBooks(data);',
+						  'method'=>'post'),
+					array('format'=>'json'));?>
+<a href = '#' id = 'previous' page = "<?= $this->previous;?>" >&lt Previous</a>
+<?php
+foreach($this->pagesInRange as $page)
+{
+	echo '<a href = "#" id = "page" page = "'.$page.'">'.$page.'</a> | ';
+}
+	?>
+<a href = '#' id = 'next' page = "<?= $this->next;?>">Next &gt</a>
+
+<?= $this->ajaxLink('End',
+					$this->url(array('page'=>$this->last)),
+					array('id'=>'end',
+						  'complete'=>'displayBooks(data);',
+						  'method'=>'post'),
+					array('format'=>'json'));?>
+</br>
+Showing <div id = 'currentPage' style = 'display: inline'><?php echo $this->current; ?></div> out of <?php echo $this->pageCount;?>

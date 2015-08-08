@@ -1,0 +1,21 @@
+<script src = 'jquery.js'></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	$('#test').click(function()
+	{
+		$.ajax({
+			url: "http://zend/firstzend/public/library/books/list/",
+			type: "POST",
+			dataType:"json",
+			//beforeSend: function(){alert('here ok');},
+			async:false,
+			success:function(response){
+				console.log(JSON.parse(response));
+			}
+			//error:function(error){alert('sorry' + eval(error));}
+		});
+	});
+});
+</script>
+<div id = 'test'>testing</div>

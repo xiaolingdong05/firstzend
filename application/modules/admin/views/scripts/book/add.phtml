@@ -1,0 +1,9 @@
+<br /><br />
+<div id="view-content">
+	<p>View script for controller <b>Book</b> and script/action name <b>add</b></p>
+</div>
+
+<?php
+	foreach($this->books as $key=>$value){
+		echo $value->title.' by '.$value->author.'<br>';
+	}

@@ -1,0 +1,68 @@
+
+<?php
+/* without dojo() jQuery()
+foreach($this->paginator as $book)
+{
+	echo $book['title'].' <b>by</b> '.$book['author'].'<br>';
+}*/
+
+// Dojo()
+/*$this->dojo()->enable();
+echo $this->accordionContainer()->captureStart(
+	'books', //id for the accordion
+	array('duration' => 200),
+	array('style' => 'width:500px; height:100px;')
+	);
+//foreach($this->paginator as $book)
+foreach($this->books as $book)
+{
+	echo $this->accordionPane(
+		'book'.$book['id'],
+		'written by '.$book['author'],
+		array('title'=>$book['title']),
+		array('style'=>'background-color:lightgrey;')
+		);
+}
+
+echo $this->accordionContainer()->captureEnd('books');*/
+
+//jQuery()
+
+$this->jQuery()->enable()
+->addJavaScriptFile($this->baseUrl().'/js/frontend.js');?>
+<div id = 'booksResponse'>
+<?php
+//foreach($this->paginator as $book)
+foreach($this->books as $book)
+{
+	$details = 'written by '.$book->getAuthor(). '<br/>Comments:<dl>';
+	foreach($book->getComments($this->url(array('controller'=> 'comment', 'action'=>'edit'))) 
+		as $comment)
+	{
+		$details .= '<dt>' .$comment['user'].'</dt>'.
+					'<dd>' .$comment['comment'].'</dd>';
+	}
+
+	$details .='</dl>';
+	echo $this->accordionPane(
+		'books',
+		//'written by '.$book['author'],
+		$details,
+		//array('title'=>$book['title']
+		array('title'=>$book->getTitle()));
+
+}
+echo $this->accordionContainer(
+	'books',
+	array('active'=>'none', 'collapsible'=>'true')
+	);
+?>
+</div>
+<p></p>
+
+<?php	echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml');?>
+
+<?= $this->ajaxLink('test', 
+					$this->url(array('module'=>'library','controller' => 'books', 'action' => 'list','page' => '1')), 
+					array('id'=>'test', 'beforeSend' => 'alert("hi");','complete' => 'displayBooks(data);', 'method'=>'POST'),
+					array('format' => 'json'));?>

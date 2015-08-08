@@ -1,0 +1,50 @@
+<?php echo $this->doctype(); ?>
+
+<html>
+    <head> 
+
+    <?php echo $this->headMeta();?> 
+    <?php echo $this->headTitle();?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css');
+    /*if($this->dojo()->isEnabled())
+        {
+            echo $this->headScript()->prependFile($this->baseUrl().'/js/frontend.js', 'text/javascript');
+            $this->dojo()->setLocalPath($this->baseUrl().'/js/dojo/dojo/dojo.js')
+            ->addStyleSheetModule('dijit.themes.tundra');
+            echo $this->dojo();
+        }*/
+    if ($this->jQuery()->isEnabled())
+    {
+        //echo $this->headScript()->prependFile($this->baseUrl().'/js/frontend.js', 'text/javascript');
+        $this->jQuery()->setLocalPath($this->baseUrl().'/js/jquery/external/jquery/jquery.js')
+                       ->setUiLocalPath($this->baseUrl().'/js/jquery/jquery-ui.min.js')
+                       ->addStyleSheet($this->baseUrl().'/js/jquery/jquery-ui.theme.css');
+        echo $this->jQuery();
+    }
+    ?>
+
+    <!--<title> Zend Framework Tutorial</title>
+    <meta http-equiv="Content-Type" content = 'text/html'; charaset = 'utf8'/>
+    <link rel = "stylesheet" type = 'text/css' href = 'css/style.css'/>-->
+    </head>
+<body class = 'tundra'>
+    <div id='outer'>
+        <div id='header' align='center'> <?php echo $this->title;?></div>
+        <div id='bar'></div>
+		<div id = 'bodyblock' align = 'right'>
+			<div id = 'column' align = 'center'>
+				<h4 align = "center">Menu</h4>
+				<?php echo $this->navigation();?>
+                <!--<a href='<?php echo $this->url(array('controller'=>'authentication', 'action'=>'login'));?>'>Login</a>
+                <a href='<?php echo $this->url(array('controller'=>'books', 'action'=>'list'));?>'>Books</a>
+                <a href='<?php echo $this->url(array('controller'=>'authentication', 'action'=>'logout'));?>'>Logout</a>-->
+			</div>
+			<div id = 'content'>
+				<h3 align = "center"> Content space</h3>
+				<?php echo $this->layout()->content; ?>
+			</div>
+		</div>
+		<div id = 'footer' align = 'center'></div>
+	</div>
+</body>
+</html>

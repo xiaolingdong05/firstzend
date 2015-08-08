@@ -1,0 +1,19 @@
+<script src = 'jquery.js'></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	$('#test').click(function()
+	{
+		$.ajax({
+			url: "https://zend/firstzend/public/library/books/list/",
+			type: "POST",
+			data:"format=json",
+			async:false,
+			success:function(response){
+				alert(response);
+			}
+		});
+	});
+});
+</script>
+<div id = 'test'>testing</div>
